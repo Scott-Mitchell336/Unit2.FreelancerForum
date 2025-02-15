@@ -1,0 +1,43 @@
+.centerContainer {
+  display: block;
+  margin: 0 auto; 
+  width: 50%; 
+  padding: 10px;
+  border: 3px solid black;
+  text-align: center;
+}
+
+.containerTitle {
+  text-align: center;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.availableFreelancers {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.freelancerTable {
+  margin: 0 auto; 
+}
+
+.averagePrice {
+  text-align: center;
+  font-size: 20px;
+}
+
+th,
+td {
+  padding: 8px; 
+
+th {
+  font-size: 20px;
+  font-weight: bold;
+  text-align: left; 
+}
+
+td {
+  text-align: left; 
+}
