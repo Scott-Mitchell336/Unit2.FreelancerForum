@@ -1,7 +1,7 @@
 .centerContainer {
   display: block;
-  margin: 0 auto; 
-  width: 50%; 
+  margin: 0 auto;
+  width: 50%;
   padding: 10px;
   border: 3px solid black;
   text-align: center;
@@ -20,7 +20,7 @@
 }
 
 .freelancerTable {
-  margin: 0 auto; 
+  margin: 0 auto;
 }
 
 .averagePrice {
@@ -30,14 +30,15 @@
 
 th,
 td {
-  padding: 8px; 
+  padding: 8px;
+}
 
 th {
   font-size: 20px;
   font-weight: bold;
-  text-align: left; 
+  text-align: left;
 }
 
 td {
-  text-align: left; 
+  text-align: left;
 }

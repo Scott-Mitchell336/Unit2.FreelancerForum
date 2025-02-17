@@ -1,15 +1,64 @@
 const freelancers = [
-  { name: "Dr. Slice", price: 25, occupation: "gardener" },
-  { name: "Dr. Pressure", price: 51, occupation: "programmer" },
-  { name: "Prof. Possibility", price: 43, occupation: "teacher" },
-  { name: "Prof. Prism", price: 81, occupation: "teacher" },
-  { name: "Dr. Impulse", price: 43, occupation: "teacher" },
-  { name: "Prof. Spark", price: 76, occupation: "programmer" },
-  { name: "Dr. Wire", price: 47, occupation: "teacher" },
-  { name: "Prof. Goose", price: 72, occupation: "driver" },
+  { name: "Alex Brown", price: 25, occupation: "Gardener" },
+  { name: "Susie Johnson", price: 51, occupation: "Programmer" },
+];
+
+const occupations = [
+  "Web Developer",
+  "Graphic Designer",
+  "Teacher",
+  "Driver",
+  "Gardener",
+  "Programmer",
+  "Data Analyst",
+  "Data Scientist",
+  "Software Engineer",
+  "Business Analyst",
+  "Project Manager",
+  "Product Manager",
+  "UX Designer",
+  "UI Designer",
+  "Frontend Developer",
+  "Backend Developer",
+  "Full Stack Developer",
+];
+const firstNames = [
+  "John",
+  "Jane",
+  "Alex",
+  "Chris",
+  "Pat",
+  "Taylor",
+  "Paul",
+  "Susie",
+  "Dale",
+  "Kim",
+];
+const lastNames = [
+  "Doe",
+  "Smith",
+  "Johnson",
+  "Brown",
+  "Williams",
+  "Jones",
+  "Garcia",
+  "Miller",
+  "Davis",
+  "Rodriguez",
 ];
 
 let currentFreelancerIndex = 0;
+
+function getRandomElement(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function generateRandomFreelancer() {
+  const name = `${getRandomElement(firstNames)} ${getRandomElement(lastNames)}`;
+  const occupation = getRandomElement(occupations);
+  const price = Math.random() * 100; // Random price between 0 and 100
+  return { name, occupation, price: parseFloat(price) };
+}
 
 function createTable() {
   const table = document.createElement("table");
@@ -35,7 +84,7 @@ function createTable() {
 
 function addFreelancer(freelancer) {
   const tableBody = document.querySelector("#freeLancerTableBody");
-  console.log(tableBody);
+  //console.log(tableBody);
   const row = document.createElement("tr");
 
   const name = document.createElement("td");
@@ -47,7 +96,8 @@ function addFreelancer(freelancer) {
   row.appendChild(occupation);
 
   const price = document.createElement("td");
-  price.textContent = `$${freelancer.price.toFixed(2)}`; // Format price as $xx.xx
+  const roundedPrice = Math.floor(freelancer.price);
+  price.textContent = `$${roundedPrice.toFixed(2)}`; // Format price as $xx.00
   row.appendChild(price);
 
   tableBody.appendChild(row);
@@ -56,15 +106,15 @@ function addFreelancer(freelancer) {
 function updateAveragePrice() {
   // Calculate average price
   let total = 0;
-  console.log("currentFreelancerIndex = ", currentFreelancerIndex);
+  //console.log("currentFreelancerIndex = ", currentFreelancerIndex);
   for (let i = 0; i <= currentFreelancerIndex; i++) {
-    console.log("index = ", i);
+    //console.log("index = ", i);
     const freelancer = freelancers[i];
     total += freelancer.price;
-    console.log("total = ", total);
+    //console.log("total = ", total);
   }
   const averagePrice = total / (currentFreelancerIndex + 1);
-  console.log(`Average Price: $${averagePrice.toFixed(2)}`);
+  //console.log(`Average Price: $${averagePrice.toFixed(2)}`);
 
   // Update the average price in the DOM
   const averagePriceElement = document.querySelector(".averagePrice");
@@ -80,17 +130,17 @@ container.appendChild(table);
 
 const addFreelancerIntervalId = setInterval(() => {
   const freeLancer = freelancers[currentFreelancerIndex];
-  console.log(freeLancer);
+  //console.log(freeLancer);
   addFreelancer(freeLancer);
   updateAveragePrice();
-  if (currentFreelancerIndex === freelancers.length - 1) {
-    clearInterval(addFreelancerIntervalId);
-  }
+  // if (currentFreelancerIndex === freelancers.length - 1) {
+  //   clearInterval(addFreelancerIntervalId);
+  // }
   currentFreelancerIndex++;
 }, 5000);
 
-// const freeLancer = freelancers[currentFreelancerIndex];
-// console.log(freeLancer);
-// addFreelancer(freeLancer);
-// updateAveragePrice();
-// currentFreelancerIndex++;
+const createFreelancerIntervalId = setInterval(() => {
+  const freeLancer = generateRandomFreelancer();
+  console.log("new freelancer = ", freeLancer);
+  freelancers.push(freeLancer);
+}, 5000);
