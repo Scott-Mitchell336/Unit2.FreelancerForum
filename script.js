@@ -47,7 +47,8 @@ const lastNames = [
   "Rodriguez",
 ];
 
-let currentFreelancerIndex = 0;
+let lastFreelancerShownIndex = 0;
+let totalFreeLancersPrice = 0;
 
 function getRandomElement(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
@@ -56,13 +57,14 @@ function getRandomElement(arr) {
 function generateRandomFreelancer() {
   const name = `${getRandomElement(firstNames)} ${getRandomElement(lastNames)}`;
   const occupation = getRandomElement(occupations);
-  const price = Math.random() * 100; // Random price between 0 and 100
+  const price = Math.round(Math.random() * 100); // Random price between 0 and 100
   return { name, occupation, price: parseFloat(price) };
 }
 
 function createTable() {
   const table = document.createElement("table");
-  table.setAttribute("class", "freelancerTable");
+  table.style.margin = "0 auto";
+  //table.setAttribute("class", "freelancerTable");
 
   const tableHeader = document.createElement("thead");
   const headerRow = document.createElement("tr");
@@ -70,6 +72,10 @@ function createTable() {
   headers.forEach((header) => {
     const th = document.createElement("th");
     th.textContent = header;
+    th.style.padding = "8px";
+    th.style.fontSize = "20px";
+    th.style.fontWeight = "bold";
+    th.style.textAlign = "left";
     headerRow.appendChild(th);
   });
   tableHeader.appendChild(headerRow);
@@ -89,58 +95,94 @@ function addFreelancer(freelancer) {
 
   const name = document.createElement("td");
   name.textContent = freelancer.name;
+  name.style.padding = "8px";
+  name.style.textAlign = "left";
   row.appendChild(name);
 
   const occupation = document.createElement("td");
   occupation.textContent = freelancer.occupation;
+  occupation.style.padding = "8px";
+  occupation.style.textAlign = "left";
   row.appendChild(occupation);
 
   const price = document.createElement("td");
   const roundedPrice = Math.floor(freelancer.price);
   price.textContent = `$${roundedPrice.toFixed(2)}`; // Format price as $xx.00
+  price.style.padding = "8px";
+  price.style.textAlign = "left";
   row.appendChild(price);
 
   tableBody.appendChild(row);
 }
 
-function updateAveragePrice() {
-  // Calculate average price
-  let total = 0;
-  //console.log("currentFreelancerIndex = ", currentFreelancerIndex);
-  for (let i = 0; i <= currentFreelancerIndex; i++) {
-    //console.log("index = ", i);
-    const freelancer = freelancers[i];
-    total += freelancer.price;
-    //console.log("total = ", total);
-  }
-  const averagePrice = total / (currentFreelancerIndex + 1);
-  //console.log(`Average Price: $${averagePrice.toFixed(2)}`);
+// function updateAveragePrice() {
+//   // Calculate average price
+//   let total = 0;
 
-  // Update the average price in the DOM
+//   console.log(
+//     "updateAveragePrice - lastFreelancerShownIndex = ",
+//     lastFreelancerShownIndex
+//   );
+//   console.log("lastFreelancerShownIndex = ", lastFreelancerShownIndex);
+//   for (let i = 0; i < lastFreelancerShownIndex; i++) {
+//     console.log("index = ", i);
+//     const freelancer = freelancers[i];
+//     total += freelancer.price;
+//     console.log("total = ", total);
+//   }
+//   console.log("lastFreelancerShownIndex = ", lastFreelancerShownIndex);
+//   const averagePrice = total / lastFreelancerShownIndex;
+//   console.log(`Average Price: $${averagePrice.toFixed(2)}`);
+
+//   // Update the average price in the DOM
+//   const averagePriceElement = document.querySelector(".averagePrice");
+//   averagePriceElement.textContent = `The average starting price is $${averagePrice.toFixed(
+//     2
+//   )}`;
+// }
+
+function updateaveragePrice(freeLancer) {
+  //console.log("freeLancer.price = ", freeLancer.price);
+  totalFreeLancersPrice += freeLancer.price;
+  //console.log("totalFreeLancersPrice = ", totalFreeLancersPrice);
+  const averagePrice = totalFreeLancersPrice / lastFreelancerShownIndex;
+  //console.log(`Average Price: $${averagePrice.toFixed(2)}`);
   const averagePriceElement = document.querySelector(".averagePrice");
   averagePriceElement.textContent = `The average starting price is $${averagePrice.toFixed(
     2
   )}`;
 }
 
+function showInitialFreelancers() {
+  for (let i = 0; i < freelancers.length; i++) {
+    addFreelancer(freelancers[i]);
+    lastFreelancerShownIndex++;
+    updateaveragePrice(freelancers[i]);
+  }
+}
+
 const table = createTable();
 const container = document.querySelector(".centerContainer");
-
 container.appendChild(table);
 
+showInitialFreelancers();
+
 const addFreelancerIntervalId = setInterval(() => {
-  const freeLancer = freelancers[currentFreelancerIndex];
-  //console.log(freeLancer);
-  addFreelancer(freeLancer);
-  updateAveragePrice();
-  // if (currentFreelancerIndex === freelancers.length - 1) {
-  //   clearInterval(addFreelancerIntervalId);
-  // }
-  currentFreelancerIndex++;
+  if (lastFreelancerShownIndex <= freelancers.length - 1) {
+    //console.log("lastFreelancerShownIndex = ", lastFreelancerShownIndex);
+    //console.log("freelancers = ", freelancers);
+    const freeLancer = freelancers[lastFreelancerShownIndex];
+    //console.log("freelancer = ", freeLancer);
+    //console.log(freeLancer);
+    addFreelancer(freeLancer);
+
+    lastFreelancerShownIndex++;
+    updateaveragePrice(freeLancer);
+  }
 }, 5000);
 
 const createFreelancerIntervalId = setInterval(() => {
   const freeLancer = generateRandomFreelancer();
-  console.log("new freelancer = ", freeLancer);
+  //console.log("new freelancer = ", freeLancer);
   freelancers.push(freeLancer);
 }, 5000);
