@@ -183,6 +183,7 @@ function showInitialFreelancers() {
   }
 }
 
+// Main code
 createInitialHTML();
 
 const table = createTable();
