@@ -61,10 +61,52 @@ function generateRandomFreelancer() {
   return { name, occupation, price: parseFloat(price) };
 }
 
+function createInitialHTML() {
+  const htmlBody = document.querySelector("body");
+  console.log("body = ", htmlBody);
+  const scriptElement = document.querySelector("#scriptTag");
+  console.log("scriptElement = ", scriptElement);
+
+  const centerContainer = document.createElement("div");
+  centerContainer.classList.add("centerContainer");
+  centerContainer.style.display = "block";
+  centerContainer.style.margin = "0 auto";
+  centerContainer.style.width = "50%";
+  centerContainer.style.padding = "10px";
+  centerContainer.style.border = "2px solid black";
+  centerContainer.style.textAlign = "center";
+
+  htmlBody.insertBefore(centerContainer, scriptElement);
+
+  const containerTitle = document.createElement("h1");
+  containerTitle.classList.add("containerTitle");
+  containerTitle.style.textAlign = "center";
+  containerTitle.style.fontSize = "40px";
+  containerTitle.style.fontWeight = "bold";
+  containerTitle.textContent = "Freelancer Forum";
+  centerContainer.appendChild(containerTitle);
+
+  const averagePrice = document.createElement("p");
+  averagePrice.classList.add("averagePrice");
+  averagePrice.style.textAlign = "center";
+  averagePrice.style.margin = "10px";
+  averagePrice.style.fontSize = "20px";
+  averagePrice.style.fontWeight = "normal";
+  centerContainer.appendChild(averagePrice);
+
+  const tableTitle = document.createElement("h1");
+  tableTitle.classList.add("availableFreelancers");
+  tableTitle.style.textAlign = "center";
+  tableTitle.style.fontSize = "30px";
+  tableTitle.style.fontWeight = "bold";
+  tableTitle.textContent = "Available Freelancers";
+  centerContainer.appendChild(tableTitle);
+}
+
 function createTable() {
   const table = document.createElement("table");
   table.style.margin = "0 auto";
-  //table.setAttribute("class", "freelancerTable");
+  table.setAttribute("class", ".freelancerTable");
 
   const tableHeader = document.createElement("thead");
   const headerRow = document.createElement("tr");
@@ -97,12 +139,16 @@ function addFreelancer(freelancer) {
   name.textContent = freelancer.name;
   name.style.padding = "8px";
   name.style.textAlign = "left";
+  name.style.fontSize = "15px";
+  name.style.fontWeight = "normal";
   row.appendChild(name);
 
   const occupation = document.createElement("td");
   occupation.textContent = freelancer.occupation;
   occupation.style.padding = "8px";
   occupation.style.textAlign = "left";
+  occupation.style.fontSize = "15px";
+  occupation.style.fontWeight = "normal";
   row.appendChild(occupation);
 
   const price = document.createElement("td");
@@ -110,6 +156,8 @@ function addFreelancer(freelancer) {
   price.textContent = `$${roundedPrice.toFixed(2)}`; // Format price as $xx.00
   price.style.padding = "8px";
   price.style.textAlign = "left";
+  price.style.fontSize = "15px";
+  price.style.fontWeight = "normal";
   row.appendChild(price);
 
   tableBody.appendChild(row);
@@ -160,6 +208,8 @@ function showInitialFreelancers() {
     updateaveragePrice(freelancers[i]);
   }
 }
+
+createInitialHTML();
 
 const table = createTable();
 const container = document.querySelector(".centerContainer");
