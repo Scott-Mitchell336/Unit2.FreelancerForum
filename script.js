@@ -163,32 +163,6 @@ function addFreelancer(freelancer) {
   tableBody.appendChild(row);
 }
 
-// function updateAveragePrice() {
-//   // Calculate average price
-//   let total = 0;
-
-//   console.log(
-//     "updateAveragePrice - lastFreelancerShownIndex = ",
-//     lastFreelancerShownIndex
-//   );
-//   console.log("lastFreelancerShownIndex = ", lastFreelancerShownIndex);
-//   for (let i = 0; i < lastFreelancerShownIndex; i++) {
-//     console.log("index = ", i);
-//     const freelancer = freelancers[i];
-//     total += freelancer.price;
-//     console.log("total = ", total);
-//   }
-//   console.log("lastFreelancerShownIndex = ", lastFreelancerShownIndex);
-//   const averagePrice = total / lastFreelancerShownIndex;
-//   console.log(`Average Price: $${averagePrice.toFixed(2)}`);
-
-//   // Update the average price in the DOM
-//   const averagePriceElement = document.querySelector(".averagePrice");
-//   averagePriceElement.textContent = `The average starting price is $${averagePrice.toFixed(
-//     2
-//   )}`;
-// }
-
 function updateaveragePrice(freeLancer) {
   //console.log("freeLancer.price = ", freeLancer.price);
   totalFreeLancersPrice += freeLancer.price;
