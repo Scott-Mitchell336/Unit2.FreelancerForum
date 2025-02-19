@@ -1,3 +1,9 @@
+//
+// script.js
+// Created by Scott Mitchell on 02/13/2025
+// Block 19 - Frelance Forum
+//
+
 const freelancers = [
   { name: "Alex Brown", price: 25, occupation: "Gardener" },
   { name: "Susie Johnson", price: 51, occupation: "Programmer" },
